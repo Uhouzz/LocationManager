@@ -1099,7 +1099,11 @@ BOOL INTUCLHeadingIsIsValid(CLHeading *heading)
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
-{
+{   
+    if ([manager authorizationStatus] == kCLAuthorizationStatusNotDetermined) {
+        return;
+    }
+    
     INTULMLog(@"Location services error: %@", [error localizedDescription]);
     self.updateFailed = YES;
 
@@ -1114,8 +1118,15 @@ BOOL INTUCLHeadingIsIsValid(CLHeading *heading)
     }
 }
 
-- (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status
-{
+- (void)locationManagerDidChangeAuthorization:(CLLocationManager *)manager {
+    [self calcAuthorizationStatus:manager.authorizationStatus locationManager:manager];
+}
+
+- (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
+    [self calcAuthorizationStatus:status locationManager:manager];
+}
+
+- (void)calcAuthorizationStatus:(CLAccuracyAuthorization)status locationManager:(CLLocationManager *)manager {
     if (status == kCLAuthorizationStatusDenied || status == kCLAuthorizationStatusRestricted) {
         // Clear out any active location requests (which will execute the blocks with a status that reflects
         // the unavailability of location services) since we now no longer have location services permissions
