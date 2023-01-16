@@ -90,13 +90,13 @@ typedef NS_ENUM(NSInteger, INTULocationAccuracy) {
     INTULocationAccuracyNone = 0,
     
     // The below options are valid desired accuracies.
-    /** 5000 meters or better, and received within the last 10 minutes. Lowest accuracy. */
+    /** 3000 meters or better, and received within the last 10 minutes. Lowest accuracy. */
     INTULocationAccuracyCity,
     /** 1000 meters or better, and received within the last 5 minutes. */
     INTULocationAccuracyNeighborhood,
     /** 100 meters or better, and received within the last 1 minute. */
     INTULocationAccuracyBlock,
-    /** 15 meters or better, and received within the last 15 seconds. */
+    /** 10 meters or better, and received within the last 15 seconds. */
     INTULocationAccuracyHouse,
     /** 5 meters or better, and received within the last 5 seconds. Highest accuracy. */
     INTULocationAccuracyRoom,

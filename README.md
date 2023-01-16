@@ -70,10 +70,10 @@ To get the device's current location, use the method `requestLocationWithDesired
 
 The `desiredAccuracy` parameter specifies how **accurate and recent** of a location you need. The possible values are:
 ```objective-c
-INTULocationAccuracyCity          // 5000 meters or better, received within the last 10 minutes  -- lowest accuracy
+INTULocationAccuracyCity          // 3000 meters or better, received within the last 10 minutes  -- lowest accuracy
 INTULocationAccuracyNeighborhood  // 1000 meters or better, received within the last 5 minutes
 INTULocationAccuracyBlock         // 100 meters or better, received within the last 1 minute
-INTULocationAccuracyHouse         // 15 meters or better, received within the last 15 seconds
+INTULocationAccuracyHouse         // 10 meters or better, received within the last 15 seconds
 INTULocationAccuracyRoom          // 5 meters or better, received within the last 5 seconds      -- highest accuracy
 ```
 
