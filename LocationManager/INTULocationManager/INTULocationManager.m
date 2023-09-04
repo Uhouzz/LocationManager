@@ -752,8 +752,7 @@ static id _sharedInstance;
                 CLLocationAccuracy currentLocationHorizontalAccuracy = mostRecentLocation.horizontalAccuracy;
                 NSTimeInterval staleThreshold = [locationRequest updateTimeStaleThreshold];
                 CLLocationAccuracy horizontalAccuracyThreshold = [locationRequest horizontalAccuracyThreshold];
-                if (currentLocationTimeSinceUpdate <= staleThreshold &&
-                    currentLocationHorizontalAccuracy <= horizontalAccuracyThreshold) {
+                if (currentLocationTimeSinceUpdate <= staleThreshold) {
                     // The request's desired accuracy has been reached, complete it
                     [self completeLocationRequest:locationRequest];
                     continue;
