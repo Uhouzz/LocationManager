@@ -79,18 +79,18 @@ static id _sharedInstance;
 /**
  Returns the current state of location services for this app, based on the system settings and user authorization status.
  */
-+ (INTULocationServicesState)locationServicesState
+- (INTULocationServicesState)locationServicesState
 {
     if ([CLLocationManager locationServicesEnabled] == NO) {
         return INTULocationServicesStateDisabled;
     }
-    else if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined) {
+    else if ([self.locationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined) {
         return INTULocationServicesStateNotDetermined;
     }
-    else if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusDenied) {
+    else if ([self.locationManager authorizationStatus] == kCLAuthorizationStatusDenied) {
         return INTULocationServicesStateDenied;
     }
-    else if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusRestricted) {
+    else if ([self.locationManager authorizationStatus] == kCLAuthorizationStatusRestricted) {
         return INTULocationServicesStateRestricted;
     }
 
@@ -267,7 +267,7 @@ static id _sharedInstance;
     locationRequest.block = block;
     locationRequest.desiredActivityType = desiredActivityType;
 
-    BOOL deferTimeout = delayUntilAuthorized && ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined);
+    BOOL deferTimeout = delayUntilAuthorized && ([self.locationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined);
     if (!deferTimeout) {
         [locationRequest startTimeoutTimerIfNeeded];
     }
@@ -445,7 +445,7 @@ static id _sharedInstance;
  */
 - (void)addLocationRequest:(INTULocationRequest *)locationRequest
 {
-    INTULocationServicesState locationServicesState = [INTULocationManager locationServicesState];
+    INTULocationServicesState locationServicesState = [self locationServicesState];
     if (locationServicesState == INTULocationServicesStateDisabled ||
         locationServicesState == INTULocationServicesStateDenied ||
         locationServicesState == INTULocationServicesStateRestricted) {
@@ -547,7 +547,7 @@ static id _sharedInstance;
 
     double iOSVersion = floor(NSFoundationVersionNumber);
     BOOL isiOSVersion7to10 = iOSVersion > NSFoundationVersionNumber_iOS_7_1 && iOSVersion <= NSFoundationVersionNumber10_11_Max;
-    if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined) {
+    if ([self.locationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined) {
         BOOL canRequestAlways = NO;
         BOOL canRequestWhenInUse = NO;
         if (isiOSVersion7to10) {
@@ -849,7 +849,7 @@ static id _sharedInstance;
  */
 - (INTULocationStatus)statusForLocationRequest:(INTULocationRequest *)locationRequest
 {
-    INTULocationServicesState locationServicesState = [INTULocationManager locationServicesState];
+    INTULocationServicesState locationServicesState = [self locationServicesState];
 
     if (locationServicesState == INTULocationServicesStateDisabled) {
         return INTULocationStatusServicesDisabled;

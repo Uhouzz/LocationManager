@@ -41,7 +41,6 @@ NS_ASSUME_NONNULL_BEGIN
 @interface INTULocationManager : NSObject
 
 /** Returns the current state of location services for this app, based on the system settings and user authorization status. */
-+ (INTULocationServicesState)locationServicesState;
 
 /** Returns the current state of heading services for this device. */
 + (INTUHeadingServicesState)headingServicesState;
@@ -50,6 +49,9 @@ NS_ASSUME_NONNULL_BEGIN
 + (instancetype)sharedInstance;
 
 @property (nonatomic, assign) INTUAuthorizationType preferredAuthorizationType;
+
+- (INTULocationServicesState)locationServicesState;
+
 
 #pragma mark Location Requests
 
